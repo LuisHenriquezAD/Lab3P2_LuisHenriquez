@@ -4,21 +4,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import java.util.Date;
-
 import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Calendar;
-
 import java.util.Date;
-
 import java.util.GregorianCalendar;
-
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class Lab2P2_LuisHenriquez {
+public class Lab2P2_LuisHenriquez  {
 
     public static void main(String[] args) throws ParseException {
         Scanner leer = new Scanner(System.in);
@@ -101,25 +95,24 @@ public class Lab2P2_LuisHenriquez {
                 conta++;
 
                 System.out.println("Ingrese la marca del vehiculo");
-                String marca = leer.nextLine();
-                leer.next();
-
+                String marca = leer.next();
+              
+                
                 System.out.println("Escriba si es Automatico o Mecanico");
-                String tipo = leer.nextLine();
-                leer.next();
-
+                String tipo = leer.next();
+                
+                
                 System.out.println("Ingrese que color es");
-                String color = leer.nextLine();
-                leer.next();
+                String color = leer.next();
+                
 
                 System.out.println("Ingrese el modelo");
-                String modelo = leer.nextLine();
-                leer.next();
-
+                String modelo = leer.next();
+                
                 System.out.println("Ingrese la fecha con el formato YYYY-MM-dd");
                 String texto = leer.next();
                 String ffff = texto;
-                
+
                 Date fecha = fechas.parse(ffff);
 
                 Vehiculo.add(new PRINCIPAL(tipo, marca, modelo, color, fecha));
@@ -135,19 +128,16 @@ public class Lab2P2_LuisHenriquez {
                 if (opc == 1) {
 
                     System.out.println("Ingrese el tipo de combustible");
-                    String combus = leer.nextLine();
-                    leer.next();
+                    String combus = leer.next();
 
                     System.out.println("Ingrese la cantidad de puertas");
                     int puertas = leer.nextInt();
 
                     System.out.println("Ingrese si es manual o automatico");
-                    String trans = leer.nextLine();
-                    leer.next();
+                    String trans = leer.next();
 
                     System.out.println("Ingrese la cantidad de asientos");
                     int asientos = leer.nextInt();
-                   
 
                     Vehiculo.add(new Automovil(combus, puertas, trans, asientos, placaH, tipo, marca, modelo, color, fecha));
 
@@ -156,15 +146,12 @@ public class Lab2P2_LuisHenriquez {
                 if (opc == 2) {//AGREGAR MOTO
                     System.out.println("Ingrese la velocidad maxima");
                     double vel = leer.nextDouble();
-                 
 
                     System.out.println("Ingrese el peso de la moto");
                     double peso = leer.nextDouble();
-                    
 
                     System.out.println("Ingrese el consumo de gasolina por Km");
                     double cons = leer.nextDouble();
-              
 
                     Vehiculo.add(new Moto(vel, peso, cons, placaM, tipo, marca, modelo, color, fecha));
 
@@ -173,7 +160,6 @@ public class Lab2P2_LuisHenriquez {
                 if (opc == 3) {//AGG BUS
                     System.out.println("Ingresar el numero de pasajeros");
                     int pas = leer.nextInt();
-                    leer.next();
 
                     System.out.println("Ingrese el numero de ejes");
                     int llantas = leer.nextInt();
@@ -188,8 +174,109 @@ public class Lab2P2_LuisHenriquez {
                 }
 
                 if (opc == 4) {//MODIFICAR
+                    System.out.println("Ingrese el tipo de vehiculo que desea MODIFICAR:");
+                    System.out.println("1- Autos");
+                    System.out.println("2- Buses");
+                    System.out.println("3- Motos");
+                    int esco = leer.nextInt();
+                    leer.nextLine();
 
-                }
+                    switch (esco) {
+                        case 1:
+                            String auto = LISTARAUTO(Vehiculo);
+                            System.out.println("AUTOMOVILES");
+                            System.out.println(auto);
+                            break;
+                        case 2:
+                            String bus = LISTARBUS(Vehiculo);
+                            System.out.println("Buses");
+                            System.out.println(bus);
+                            break;
+                        case 3:
+                            String moto = LISTARMOTO(Vehiculo);
+                            System.out.println("Motos");
+                            System.out.println(moto);
+
+                            break;
+
+                        default:
+                            System.out.println("Opción inválida");
+                            return;
+                    }
+
+                    System.out.println("Ingrese el producto que desea modificar:");
+                    int modificar = leer.nextInt();
+                    leer.nextLine();
+
+                    if (modificar < 0 || modificar >= Vehiculo.size()) {
+                        System.out.println("INVALIDO");
+                        return;
+                    }
+
+                    Object vehiculo = Vehiculo.get(modificar);
+
+                    if (vehiculo instanceof Automovil) {
+
+                        Automovil veh = (Automovil) vehiculo;
+
+                        System.out.println("Ingrese la marca del vehiculo");
+                        marca = leer.next();
+                        veh.setMarca(marca);
+                        leer.next();
+
+                        System.out.println("Escriba si es Automatico o Mecanico");
+                        tipo = leer.next();
+                        veh.setTipo(tipo);
+                        leer.next();
+
+                        System.out.println("Ingrese que color es");
+                        color = leer.next();
+                        veh.setColor(color);
+                        leer.next();
+
+                        System.out.println("Ingrese el modelo");
+                        modelo = leer.next();
+                        veh.setModelo(modelo);
+                        leer.next();
+
+                    } else if (vehiculo instanceof Bus) {
+
+                        Bus bus = (Bus) vehiculo;
+
+                        System.out.println("Ingresar el numero de pasajeros");
+                        int pas = leer.nextInt();
+                        bus.setPas(pas);
+
+                        leer.next();
+
+                        System.out.println("Ingrese el numero de ejes");
+                        int llantas = leer.nextInt();
+                        bus.setLlantas(llantas);
+                        leer.next();
+
+                        System.out.println("Ingrese la longitud en metros");
+                        double longi = leer.nextDouble();
+                        bus.setLongi(longi);
+                        leer.next();
+
+                    } else if (vehiculo instanceof Moto) {
+
+                        Moto moto = (Moto) vehiculo;
+
+                        System.out.println("Ingrese la velocidad maxima");
+                        double vel = leer.nextDouble();
+                        moto.setVel(vel);
+
+                        System.out.println("Ingrese el peso de la moto");
+                        double peso = leer.nextDouble();
+                        moto.setPeso(peso);
+
+                        System.out.println("Ingrese el consumo de gasolina por Km");
+                        double cons = leer.nextDouble();
+                        moto.setCons(cons);
+                    }
+
+                }//FIN MODIFICAR
 
                 if (opc == 5) {//ELIMINAR
                     System.out.println("Ingrese el tipo de vehiculo que desea eliminar:");
@@ -236,6 +323,41 @@ public class Lab2P2_LuisHenriquez {
 
                 if (opc == 6) {//BOLETA
 
+                    System.out.println("Ingrese el tipo de vehiculo ");
+                    System.out.println("1- Autos");
+                    System.out.println("2- Buses");
+                    System.out.println("3- Motos");
+                    int esco = leer.nextInt();
+                    leer.nextLine();
+
+                    switch (esco) {
+                        case 1:
+                            System.out.println("Boleta de Revisión Vehicular");
+                            System.out.println("MONTO : L.1,725");
+
+                            String auto = LISTARAUTO(Vehiculo);
+                            System.out.println("AUTOMOVILES");
+                            System.out.println(auto);
+                            break;
+                        case 2:
+                            System.out.println("Boleta de Revisión Vehicular");
+                            System.out.println("MONTO : L.1,525");
+                            String bus = LISTARBUS(Vehiculo);
+                            System.out.println("Buses");
+                            System.out.println(bus);
+                            break;
+                        case 3:
+                            System.out.println("Boleta de Revisión Vehicular");
+                            System.out.println("MONTO : L.725");
+                            String moto = LISTARMOTO(Vehiculo);
+                            System.out.println("Motos");
+                            System.out.println(moto);
+                            break;
+
+                        default:
+                            System.out.println("Opción inválida");
+                            return;
+                    }
                 }
 
             }
